@@ -26,7 +26,9 @@ h1 {
   border: solid 2px;
 }
 body {
-    background: linear-gradient(0deg, #822cb4 0%, #9616e6 40%, #ff3bef 80%);
+    background-image: url(../picture/logo.avif);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .back {
     font-size: 30px;
