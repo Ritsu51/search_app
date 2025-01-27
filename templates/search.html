@@ -1,0 +1,83 @@
+<!-- <form method="get"> 
+    {{ form.as_p }}  
+    <button type="submit">検索</button> 
+</form>  -->
+<!-- <div class="pagination"> 
+        <span class="step-links"> 
+            {% if page_obj.has_previous %} 
+                <a href="?page=1">最初</a> 
+    
+                <a href="?page={{ page_obj.previous_page_number }}">前へ</a>  
+            {% endif %} 
+            <span class="current"> 
+                ページ {{ page_obj.number }} / {{ page_obj.paginator.num_pages }} 
+            </span> 
+            {% if page_obj.has_next %} 
+    
+                <a href="?page={{ page_obj.next_page_number }}">次へ</a>   
+    
+                <a href="?page={{ page_obj.paginator.num_pages }}">最後</a>  
+            {% endif %}  -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    {% load static %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <title>Buckler's Combolist</title>
+</head>
+
+<body class="p-5">
+    <h1>Buckler's Combolist</h1>
+    <div class="main-flex">
+        <form method="get">
+            {{ form.as_p }}
+            <label for="category">カテゴリ:</label>
+            <select name="category" class="form-select">
+                <option value="">すべて</option>
+            </select>
+            <label for="min_price">最低ダメージ:</label>
+            <input type="number" name="min_price" min="0">
+            <label for="max_price">最高ダメージ:</label>
+            <input type="number" name="max_price" min="0">
+            <!-- 並び替えの選択 -->
+            <label for="sort">並び替え:</label>
+            <select name="sort" class="form-select">
+                <option value="name">名前順</option>
+                <option value="price_asc">ダメージが少ない順</option>
+                <option value="price_desc">ダメージが多い順</option>
+            </select>
+            <button type="submit">検索</button>
+        </form>
+    </div>
+    <ul class="list-group">
+        {% for product in page_obj %}
+        <li class="list-group-item">{{ product.name }} - {{ product.max_damage }}</li>
+        {% empty %}
+        <li class="list-group-item">No results found</li>
+        {% endfor %}
+    </ul>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?page=1">最初</a>
+            <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+            {% endif %}
+            <span>ページ {{ page_obj.number }} /
+                {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">最後</a>
+            {% endif %}
+        </span>
+    </div>
+    </span>
+    </div>
+</body>
+
+</html>

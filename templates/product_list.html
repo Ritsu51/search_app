@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buckler's Combolist</title>
+  <!-- Bootstrap CSS -->
+  {% load static %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{% static 'css/product_list.css' %}" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"></rel> リセットcss -->
+</head>
+
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Buckler's Combolist</h1>
+    <form method="get" class="form-inline">
+      {% load widget_tweaks %}
+      <div class="form-group mx-sm-3 mb-2">
+          <label for="query">検索:</label>
+          {{ form.query|add_class:"form-control" }}
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+          <label for="category">カテゴリ:</label>
+          {{ form.category|add_class:"form-control" }}
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+          <label for="higher_damage">最大ダメージ:</label>
+          {{ form.higher_damage|add_class:"form-control" }}
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+          <label for="lower_damage">最小ダメージ:</label>
+          {{ form.lower_damage|add_class:"form-control" }}
+      </div>
+      <div class="combo_create">
+      <button type="submit" class="btn btn-primary mb-2">検索</button>
+  </form>
+    <a href="{% url 'app:product_create' %}" class="btn btn-primary mb-2">新規コンボ登録</a>
+    </div>
+    <!-- 商品リスト -->
+    <ul class="list-group">
+      {% for product in products %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <form action="{% url 'app:follow_place' product.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" name="button">お気に入り{% if product in favorites %}削除{% else %}追加{% endif %}</button>
+        </form>
+        {% csrf_token %}
+
+        <div class="combolist">
+          <h5>{{ product.name }} </h5> キャラ:{{ product.category }}|ダメージ:{{ product.max_damage }}
+        </div>
+        <div>
+          <!-- 詳細ボタン -->
+          <a href = "{% url 'app:product_description' product.id %}" class="btn btn-primary me-2">詳細</a>
+          <!-- 編集ボタン -->
+          <a href="{% url 'app:product_update' product.id %}" class="btn btn-primary me-2">編集</a>
+          <!-- 削除ボタン -->
+          <form action="{% url 'app:product_delete' product.id %}" method="POST" style="display:inline;"
+            onsubmit="return confirm('本当に削除しますか？');">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">削除</button>
+          </form>
+        </div>
+      </li>
+      {% empty %}
+      <li class="list-group-item">商品がありません。</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
