@@ -55,6 +55,9 @@ def product_list(request):
         lower_damage = form.cleaned_data['lower_damage']
         if lower_damage:
             products = products.filter(max_damage__gte = lower_damage)
+        favorite_only = form.cleaned_data['favorite_only']
+        if favorite_only:
+            products = [c.favorite_product for c in Favorite.objects.filter(favorite_user = request.user.id)]
 
     # format_products = []
     # for c in products:

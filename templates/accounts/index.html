@@ -10,7 +10,7 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-<div class="h2">Welcome {{ user.first_name }} {{ user.last_name }}</div>
+<div class="h2">Welcome {{ user.account_id }}</div>
 <!-- ↓追加 -->
 <form action="{% url 'accounts:logout' %}" method="post">
     {% csrf_token %}

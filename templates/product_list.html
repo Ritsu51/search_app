@@ -14,7 +14,10 @@
 
 <body>
   <div class="container mt-5">
+    <div class="up_case">
     <h1 class="text-center mb-4">Buckler's Combolist</h1>
+    <a href="{% url 'accounts:index' %}" class="btn btn-secondary">accounts</a>
+    </div>
     <form method="get" class="form-inline">
       {% load widget_tweaks %}
       <div class="form-group mx-sm-3 mb-2">
@@ -32,6 +35,10 @@
       <div class="form-group mx-sm-3 mb-2">
           <label for="lower_damage">最小ダメージ:</label>
           {{ form.lower_damage|add_class:"form-control" }}
+      </div>
+      <div class = "form-group mx-sm-3 mb-2">
+          <label for="favorite_only">お気に入りのみ表示:</label>
+          {{ form.favorite_only|add_class:"form-check-input" }}
       </div>
       <div class="combo_create">
       <button type="submit" class="btn btn-primary mb-2">検索</button>

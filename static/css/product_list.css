@@ -11,3 +11,12 @@ body {
   display: flex;
   justify-content: space-between;
 }
+
+.up_case {
+  display: flex;
+  justify-content: space-between;
+}
+
+.up_case a {
+  height: min-content;
+}

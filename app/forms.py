@@ -23,6 +23,10 @@ class SearchForm(forms.Form):
         label="最高ダメージ",
         required=False,
     )
+    favorite_only = forms.BooleanField(
+        label="お気に入りのみ",
+        required=False
+    )
 
 class ProductForm(forms.ModelForm):
     class Meta:
